@@ -87,7 +87,8 @@
     "agent.js",
     "config",
     "app",
-    "lib"
+    "lib",
+    "build"
   ],
   "ci": {
     "version": "6, 7"
