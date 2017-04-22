@@ -6,7 +6,7 @@
 ## 特性
 
 - 支持vue单页面/多页面入口服务器端和客户端分别构建, 支持服务器渲染和前端客户端渲染两种模式.
-- 集成koa-webpack-dev-middleware和koa-webpack-hot-middleware中间价, 支持开发热更新和自动刷新, 开发时构建的目标文件存储到内存里面, 资源访问时直接从内存里面读取.
+- 集成koa-webpack-dev-middleware和koa-webpack-hot-middleware中间件, 支持开发热更新和自动刷新, 开发时构建的目标文件存储到内存里面, 资源访问时直接从内存里面读取.
 - 内置本地开发, 测试环境, 正式环境默认配置, 可以基于默认配置进行扩展, 简化webpack配置的复杂性.
 - 插件已内置webpack基本配置, 可以自定义webpack配置覆盖已有配置.
 - 当结合`egg-view-vue-ssr` 插件一起使用, 本地开发时, 文件读取会改为从webpack编译的内存读取.
