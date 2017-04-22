@@ -94,9 +94,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hubcarl/egg-vue-webpack-vue.git"
+    "url": "git+https://github.com/hubcarl/egg-vue-webpack-dev.git"
   },
   "author": "hubcarl@126.com",
   "license": "MIT",
-  "homepage": "https://github.com/hubcarl/egg-vue-webpack-vue"
+  "homepage": "https://github.com/hubcarl/egg-vue-webpack-dev"
 }
