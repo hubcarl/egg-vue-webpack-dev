@@ -2,7 +2,6 @@
 
 const path = require('path');
 const fs = require('fs');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = (projectRoot, config) => {
 
@@ -25,43 +24,34 @@ module.exports = (projectRoot, config) => {
 
   loader.cssLoaders = function(options) {
     options = options || {};
-    // generate loader string to be used with extract text plugin
+
     function generateLoaders(loaders) {
-      const sourceLoader = loaders.map(function(loader) {
-        let extraParamChar;
-        if (/\?/.test(loader)) {
-          loader = loader.replace(/\?/, '-loader?');
-          extraParamChar = '&';
-        } else {
-          loader = loader + '-loader';
-          extraParamChar = '?';
+      const sourceLoader = loaders.map(loader => {
+        const result = {
+          loader,
+          options: {}
+        };
+        if (loader === 'sass-loader') {
+          result.options.includePaths = options.includePaths;
         }
-        return loader + (options.sourceMap ? extraParamChar + 'sourceMap' : '');
-      }).join('!');
+        if (options.sourceMap) {
+          result.options.sourceMap = true;
+        }
+        return result;
+      });
 
-      if (options.extract) {
-        return ExtractTextPlugin.extract({
-          fallback: 'vue-style-loader',
-          use: sourceLoader
-        });
-      }
-      return [ 'vue-style-loader', sourceLoader ].join('!');
+      sourceLoader.unshift('vue-style-loader');
 
+      return sourceLoader;
     }
 
-    // http://vuejs.github.io/vue-loader/configurations/extract-css.html
     return {
-      css: generateLoaders([ 'css?-autoprefixer', 'postcss' ]),
-      postcss: generateLoaders([ 'css?-autoprefixer', 'postcss' ]),
-      less: generateLoaders([ 'css?-autoprefixer', 'postcss', 'less' ]),
-      sass: generateLoaders([ 'css?-autoprefixer', 'postcss', 'sass?indentedSyntax' ]),
-      scss: generateLoaders([ 'css?-autoprefixer', 'postcss', 'sass' ]),
-      stylus: generateLoaders([ 'css?-autoprefixer', 'postcss', 'stylus' ]),
-      styl: generateLoaders([ 'css?-autoprefixer', 'postcss', 'stylus' ])
+      css: generateLoaders([ 'css-loader', 'postcss-loader' ]),
+      less: generateLoaders([ 'css-loader', 'postcss-loader', 'less-loader' ]),
+      scss: generateLoaders([ 'css-loader', 'postcss-loader', 'sass-loader' ])
     };
   };
 
-  // Generate loaders for standalone style files (outside of .vue)
   loader.styleLoaders = function(options) {
     const output = [];
     const loaders = this.cssLoaders(options);

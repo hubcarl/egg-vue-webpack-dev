@@ -32,7 +32,8 @@ module.exports = (projectRoot, config) => {
           ],
           vue: {
             loaders: loader.cssLoaders({
-              extract: true
+              extract: true,
+              includePaths: config.build.includePaths
             })
           },
           resolveLoader: {
