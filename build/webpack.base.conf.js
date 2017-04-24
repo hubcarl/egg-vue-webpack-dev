@@ -2,6 +2,8 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const merge = require('webpack-merge');
+
 module.exports = (projectRoot, config) => {
   const loader = require('./lib/loader')(projectRoot, config);
   const baseWebpackConfig = {
@@ -22,7 +24,6 @@ module.exports = (projectRoot, config) => {
         test: /\.(js)$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-				// exclude: /node_modules\/(?!(vue-style-loader)\/).*/,
         include: projectRoot
       }, {
         test: /\.json$/,
@@ -48,7 +49,21 @@ module.exports = (projectRoot, config) => {
     },
 
     plugins: [
-      new webpack.optimize.OccurrenceOrderPlugin()
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          vue: {
+            loaders: loader.cssLoaders({
+              includePaths: config.build.includePaths
+            })
+          },
+          resolveLoader: {
+            fallback: [ path.join(projectRoot, 'node_modules') ]
+          },
+          resolve: {
+            fallback: [ path.join(projectRoot, 'node_modules') ]
+          }
+        }
+      }),
     ]
   };
   return baseWebpackConfig;

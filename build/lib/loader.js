@@ -34,9 +34,6 @@ module.exports = (projectRoot, config) => {
         if (loader === 'sass-loader') {
           result.options.includePaths = options.includePaths;
         }
-        if (options.sourceMap) {
-          result.options.sourceMap = true;
-        }
         return result;
       });
 
