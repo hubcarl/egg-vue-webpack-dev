@@ -1,8 +1,6 @@
 'use strict';
 
 const path = require('path');
-const webpack = require('webpack');
-const merge = require('webpack-merge');
 
 module.exports = (projectRoot, config) => {
   const loader = require('./lib/loader')(projectRoot, config);
@@ -48,23 +46,7 @@ module.exports = (projectRoot, config) => {
       }]
     },
 
-    plugins: [
-      new webpack.LoaderOptionsPlugin({
-        options: {
-          vue: {
-            loaders: loader.cssLoaders({
-              includePaths: config.build.includePaths
-            })
-          },
-          resolveLoader: {
-            fallback: [ path.join(projectRoot, 'node_modules') ]
-          },
-          resolve: {
-            fallback: [ path.join(projectRoot, 'node_modules') ]
-          }
-        }
-      }),
-    ]
+    plugins: []
   };
   return baseWebpackConfig;
 };

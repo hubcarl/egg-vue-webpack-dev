@@ -7,6 +7,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
 module.exports = (projectRoot, config) =>{
+  const loader = require('./lib/loader')(projectRoot, config);
   const baseWebpackConfig = require('./webpack.base.conf')(projectRoot, config);
   const clientWebpackConfig = merge(baseWebpackConfig, {
     resolve: {
@@ -15,6 +16,22 @@ module.exports = (projectRoot, config) =>{
       }
     },
     plugins: [
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          vue: {
+            loaders: loader.cssLoaders({
+              extract: true,
+              includePaths: config.build.includePaths
+            })
+          },
+          resolveLoader: {
+            fallback: [ path.join(projectRoot, 'node_modules') ]
+          },
+          resolve: {
+            fallback: [ path.join(projectRoot, 'node_modules') ]
+          }
+        }
+      }),
       new webpack.DefinePlugin({
         isBrowser: true
       }),

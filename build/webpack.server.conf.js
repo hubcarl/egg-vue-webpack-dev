@@ -9,9 +9,9 @@ module.exports = (projectRoot, config) => {
   fs.readdirSync('node_modules').filter(x => {
     return [ '.bin' ].indexOf(x) === -1;
   }).forEach(mod => {
-    nodeModules[mod] = 'commonjs ' + mod;
+    nodeModules[mod] = 'commonjs2 ' + mod;
   });
-
+  const loader = require('./lib/loader')(projectRoot, config);
   const entryConfig = require('./lib/entry')(projectRoot, config);
   const baseWebpackConfig = require('./webpack.base.conf')(projectRoot, config);
   const serverWebpackConfig = merge(baseWebpackConfig, {
@@ -28,7 +28,8 @@ module.exports = (projectRoot, config) => {
     },
 		// https://zhuanlan.zhihu.com/p/20782320
 		// http://jlongster.com/Backend-Apps-with-Webpack--Part-I
-		// npm 中的模块也会被打包进这个 bundle.js，还有 node 的一些原生模块，比如 fs/path 也会被打包进来，这明显不是我们想要的。所以我们得告诉 webpack，你打包的是 node 的代码，原生模块就不要打包了，还有 node_modules 目录下的模块也不要打包了
+		// npm 中的模块也会被打包进这个 bundle.js，还有 node 的一些原生模块，比如 fs/path 也会被打包进来，这明显不是我们想要的。
+    // 所以我们得告诉 webpack，你打包的是 node 的代码，原生模块就不要打包了，还有 node_modules 目录下的模块也不要打包了
     context: __dirname,
     node: {
       __filename: false,
@@ -36,6 +37,21 @@ module.exports = (projectRoot, config) => {
     },
     externals: nodeModules,
     plugins: [
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          vue: {
+            loaders: loader.cssLoaders({
+              includePaths: config.build.includePaths
+            })
+          },
+          resolveLoader: {
+            fallback: [ path.join(projectRoot, 'node_modules') ]
+          },
+          resolve: {
+            fallback: [ path.join(projectRoot, 'node_modules') ]
+          }
+        }
+      }),
 			// new webpack.optimize.DedupePlugin(),
 			// http://jlongster.com/Backend-Apps-with-Webpack--Part-I
 			// The IgnorePlugin will simply avoid generating that extra chunk, but doesn't help when you want to actually tell the server-side to ignore a top-level require

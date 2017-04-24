@@ -2,6 +2,7 @@
 
 const path = require('path');
 const fs = require('fs');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = (projectRoot, config) => {
 
@@ -31,11 +32,18 @@ module.exports = (projectRoot, config) => {
           loader,
           options: {}
         };
-        if (loader === 'sass-loader') {
+        if (loader === 'sass-loader' && options.includePaths) {
           result.options.includePaths = options.includePaths;
         }
         return result;
       });
+
+      if (options.extract) {
+        return ExtractTextPlugin.extract({
+          fallback: 'vue-style-loader',
+          use: sourceLoader
+        });
+      }
 
       sourceLoader.unshift('vue-style-loader');
 
@@ -45,7 +53,8 @@ module.exports = (projectRoot, config) => {
     return {
       css: generateLoaders([ 'css-loader', 'postcss-loader' ]),
       less: generateLoaders([ 'css-loader', 'postcss-loader', 'less-loader' ]),
-      scss: generateLoaders([ 'css-loader', 'postcss-loader', 'sass-loader' ])
+      scss: generateLoaders([ 'css-loader', 'postcss-loader', 'sass-loader' ]),
+      sass: generateLoaders([ 'css-loader', 'postcss-loader', 'sass-loader' ])
     };
   };
 
