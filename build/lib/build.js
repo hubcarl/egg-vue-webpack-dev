@@ -32,7 +32,7 @@ module.exports = (projectRoot, env, buildConfig) => {
         modules: false,
         children: false,
         chunks: false,
-        chunkModules: false
+        chunkModules: false,
       }) + '\n');
     });
     buildConfig.buildSuccess && buildConfig.buildSuccess(config, clientConfig, serverConfig);

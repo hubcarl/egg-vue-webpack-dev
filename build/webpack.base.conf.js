@@ -1,52 +1,60 @@
 'use strict';
 
 const path = require('path');
+const webpack = require('webpack');
 
-module.exports = (projectRoot, config) => {
+module.exports = (projectRoot, config, options = {}) => {
   const loader = require('./lib/loader')(projectRoot, config);
   const baseWebpackConfig = {
     output: {
       path: path.join(projectRoot, config.build.path),
       publicPath: config.build.publicPath,
-      filename: '[name].js'
+      filename: '[name].js',
     },
     resolve: {
-      extensions: [ '.js', '.vue' ]
+      extensions: [ '.js', '.vue' ],
     },
 
     module: {
       rules: [{
         test: /\.vue$/,
-        loader: 'vue-loader'
+        loader: require.resolve('vue-loader'),
+        options: loader.loadVueOption({
+          extract: options.extract,
+        }),
       }, {
         test: /\.(js)$/,
-        loader: 'babel-loader',
+        loader: require.resolve('babel-loader'),
         exclude: /node_modules/,
-        include: projectRoot
+        include: projectRoot,
       }, {
         test: /\.json$/,
-        loader: 'json-loader'
+        loader: require.resolve('json-loader'),
       }, {
         test: /\.html$/,
-        loader: 'vue-html-loader'
+        loader: require.resolve('vue-html-loader'),
       }, {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url-loader',
+        loader: require.resolve('url-loader'),
         query: {
           limit: 1024,
-          name: loader.assetsPath('img/[name].[hash:7].[ext]')
-        }
+          name: loader.assetsPath('img/[name].[hash:7].[ext]'),
+        },
       }, {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url-loader',
+        loader: require.resolve('url-loader'),
         query: {
           limit: 1024,
-          name: loader.assetsPath('fonts/[name].[hash:7].[ext]')
-        }
-      }]
+          name: loader.assetsPath('fonts/[name].[hash:7].[ext]'),
+        },
+      }],
     },
 
-    plugins: []
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+      }),
+    ],
   };
   return baseWebpackConfig;
 };

@@ -17,26 +17,26 @@ module.exports = (projectRoot, config) => {
     module: {
       rules: loader.styleLoaders({
         sourceMap: config.build.sourceMap,
-        extract: true
-      })
+        extract: true,
+      }),
     },
     devtool: config.build.sourceMap ? 'source-map' : false,
     output: {
       filename: loader.assetsPath('js/[name].[chunkhash:7].js'),
-      chunkFilename: loader.assetsPath('js/[id].[chunkhash:7].js')
+      chunkFilename: loader.assetsPath('js/[id].[chunkhash:7].js'),
     },
 
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
-          NODE_ENV: '"production"'
-        }
+          NODE_ENV: '"production"',
+        },
       }),
       new ExtractTextPlugin(loader.assetsPath('css/[name].[contenthash:7].css')),
       new webpack.LoaderOptionsPlugin({
-        minimize: true
-      })
-    ]
+        minimize: true,
+      }),
+    ],
   };
 
   const prodConfig = config.env && config.env.prod;
@@ -56,8 +56,8 @@ module.exports = (projectRoot, config) => {
         minify: {
           removeComments: true,
           collapseWhitespace: true,
-          removeAttributeQuotes: true
-        }
+          removeAttributeQuotes: true,
+        },
       })
     );
   });

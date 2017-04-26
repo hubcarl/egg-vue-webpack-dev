@@ -8,7 +8,7 @@ module.exports = (projectRoot, config) => {
   const customServerWebpackConfig = loader.getCustomWebpackConfig(config.build.webpackServerProdConfig);
 
   const serverProdConfig = {
-    plugins: []
+    plugins: [],
   };
 
   const prodConfig = config.env && config.env.prod;
@@ -17,8 +17,8 @@ module.exports = (projectRoot, config) => {
     serverProdConfig.plugins.push(Utils.getUglifyJsConfig(prodConfig, {
       globalDefs: {
         isBrowser: false,
-        PROD: true
-      }
+        PROD: true,
+      },
     }));
   }
 

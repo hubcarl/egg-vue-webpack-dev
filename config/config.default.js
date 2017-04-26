@@ -19,19 +19,26 @@ module.exports = () => {
       webpackClientProdConfig: 'build/webpack.client.prod.conf.js',
       webpackServerDevConfig: 'build/webpack.server.dev.conf.js',
       webpackServerTestConfig: 'build/webpack.server.test.conf.js',
-      webpackServerProdConfig: 'build/webpack.server.prod.conf.js'
+      webpackServerProdConfig: 'build/webpack.server.prod.conf.js',
     },
+    // webpack: { // loader options
+    //  loaderOption: {
+    //    sass: {
+    //      includePaths: [path.resolve(__dirname, '../app/web/asset/style')]
+    //    }
+    //  }
+    // },
     env: {
       dev: {
-        uglifyJs: false
+        uglifyJs: false,
       },
       test: {
-        uglifyJs: true
+        uglifyJs: true,
       },
       prod: {
-        uglifyJs: true
-      }
-    }
+        uglifyJs: true,
+      },
+    },
   };
 
   return exports;

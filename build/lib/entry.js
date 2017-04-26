@@ -30,7 +30,7 @@ module.exports = (projectRoot, config) => {
               }
               entryHtmlConfig.push({
                 filename: fileName,
-                template
+                template,
               });
             }
           }
@@ -42,6 +42,6 @@ module.exports = (projectRoot, config) => {
   return {
     entry,
     serverEntry,
-    htmlConfig: entryHtmlConfig
+    htmlConfig: entryHtmlConfig,
   };
 };

@@ -9,7 +9,7 @@ module.exports = (projectRoot, config) => {
   const customServerWebpackConfig = loader.getCustomWebpackConfig(config.build.webpackServerDevConfig);
 
   const serverDevConfig = {
-    plugins: []
+    plugins: [],
   };
   const devConfig = config.env && config.env.dev;
 

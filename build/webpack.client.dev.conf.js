@@ -15,22 +15,22 @@ module.exports = (projectRoot, config) => {
     entry: entryConfig.entry,
     module: {
       rules: loader.styleLoaders({
-        extract: true
-      })
+        extract: true,
+      }),
     },
     output: {
       publicPath: Utils.getDevPublicPath(config, 2),
       filename: loader.assetsPath('js/[name].js'),
-      chunkFilename: loader.assetsPath('js/[id].js')
+      chunkFilename: loader.assetsPath('js/[id].js'),
     },
     devtool: 'source-map',
     performance: {
-      hints: false
+      hints: false,
     },
     plugins: [
       new ExtractTextPlugin(loader.assetsPath('css/[name].css')), // 将css成生文件，而非内联
-      new webpack.HotModuleReplacementPlugin() // 代码热替换
-    ]
+      new webpack.HotModuleReplacementPlugin(), // 代码热替换
+    ],
   };
 
   const devConfig = config.env && config.env.dev;
@@ -46,7 +46,7 @@ module.exports = (projectRoot, config) => {
         chunks: config.build.commonsChunk,
         filename: entry.filename + '.html',
         template: entry.template,
-        inject: true
+        inject: true,
       })
     );
   });

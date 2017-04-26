@@ -44,6 +44,13 @@ exports.vuewebpackdev = {
     webpackServerTestConfig: 'build/webpack.server.test.conf.js', // 自定义服务器打包测试开发配置
     webpackServerProdConfig: 'build/webpack.server.prod.conf.js'  // 自定义服务器打包测试开发配置
   },
+  // webpack: { // loader options
+  //  loaderOption: {
+  //    sass: {
+  //      includePaths: [path.join(app.baseDir, 'app/web/asset/style')]
+  //    }
+  //  }
+  // },
   env: {
     dev: {
       uglifyJs: false  // 打包时, js是否压缩, 开发默认不压缩

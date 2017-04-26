@@ -17,7 +17,7 @@ module.exports = app => {
         return new Promise(resolve => {
           app.messenger.sendToAgent(Constant.EVENT_WEBPACK_READ_CLIENT_FILE_MEMORY, {
             filePath,
-            fileName
+            fileName,
           });
           app.messenger.on(Constant.EVENT_WEBPACK_READ_CLIENT_FILE_MEMORY_CONTENT, data => {
             resolve(data.fileContent);
@@ -27,7 +27,7 @@ module.exports = app => {
       return new Promise(resolve => {
         app.messenger.sendToAgent(Constant.EVENT_WEBPACK_READ_SERVER_FILE_MEMORY, {
           filePath,
-          fileName
+          fileName,
         });
         app.messenger.on(Constant.EVENT_WEBPACK_READ_SERVER_FILE_MEMORY_CONTENT, data => {
           resolve(data.fileContent);
@@ -43,7 +43,7 @@ module.exports = app => {
     } else {
       const serverData = yield new Promise(resolve => {
         this.app.messenger.sendToAgent(Constant.EVENT_WEBPACK_SERVER_BUILD_STATE, {
-          webpackBuildCheck: true
+          webpackBuildCheck: true,
         });
         this.app.messenger.on(Constant.EVENT_WEBPACK_SERVER_BUILD_STATE, data => {
           resolve(data);
@@ -53,7 +53,7 @@ module.exports = app => {
 
       const clientData = yield new Promise(resolve => {
         this.app.messenger.sendToAgent(Constant.EVENT_WEBPACK_CLIENT_BUILD_STATE, {
-          webpackBuildCheck: true
+          webpackBuildCheck: true,
         });
         this.app.messenger.on(Constant.EVENT_WEBPACK_CLIENT_BUILD_STATE, data => {
           resolve(data);

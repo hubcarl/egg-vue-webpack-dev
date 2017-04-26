@@ -76,8 +76,8 @@ utils.getUglifyJsConfig = (config = {}, options) => {
       dead_code: true,
       drop_console: true,
       drop_debugger: true,
-      global_defs: options.globalDefs
-    }
+      global_defs: options.globalDefs,
+    },
   }, config.uglifyJsConfig));
 };
 
@@ -116,7 +116,7 @@ utils.saveBuildConfig = (dir, webpackConfig, config, env) => {
   utils.writeFile(dir, 'config/buildConfig.json', {
     publicPath: utils.getPublicPath(webpackConfig, config, env),
     cdnDynamicDir: config.build.cdnDynamicDir,
-    commonsChunk: config.build.commonsChunk
+    commonsChunk: config.build.commonsChunk,
   });
 };
 
