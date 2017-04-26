@@ -1,4 +1,10 @@
 
+0.0.4 / 2017-04-26
+==================
+
+  * refactor:change npm loader module to require
+  * fix: webpack hot middleware client path
+
 0.0.3 / 2017-04-24
 ==================
 

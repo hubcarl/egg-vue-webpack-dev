@@ -1,6 +1,6 @@
 {
   "name": "egg-vue-webpack-dev",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "基于egg + vue2 + webpack2 的前后端集成开发编译构建插件",
   "main": "index.js",
   "eggPlugin": {
