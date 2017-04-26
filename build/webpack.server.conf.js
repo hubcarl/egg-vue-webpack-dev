@@ -33,6 +33,7 @@ module.exports = (projectRoot, config) => {
     },
     externals: loader.loadNodeModules(),
     plugins: [
+      new webpack.NormalModuleReplacementPlugin(/\.css$/, 'node-noop'),
       new webpack.IgnorePlugin(/\.(css|less|scss|sass)$/),
       new webpack.DefinePlugin({
         'process.env': {
