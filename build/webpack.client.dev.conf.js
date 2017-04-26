@@ -51,7 +51,7 @@ module.exports = (projectRoot, config) => {
     );
   });
 
-  const hotConfig = `webpack-hot-middleware/client?path=http://127.0.0.1:${config.build.port}/__webpack_hmr&noInfo=false&reload=false&quiet=false`;
+  const hotConfig = `webpack-hot-middleware/client?path=http://${Utils.getIp()}:${config.build.port}/__webpack_hmr&noInfo=false&reload=false&quiet=false`;
   Object.keys(devWebpackConfig.entry).forEach(name => {
     if (!/\./.test(name)) {
       devWebpackConfig.entry[ name ] = [ hotConfig ].concat(devWebpackConfig.entry[ name ]);
