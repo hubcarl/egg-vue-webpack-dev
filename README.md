@@ -2,7 +2,7 @@
 
 基于egg + vue2 + webpack2 的前后端集成开发打包插件, 支持服务器端和客户端jsbundle构建. 项目使用时, 建议结合 `egg-view-vue和egg-view-vue-ssr` 插件一起使用.
 
-**NOTE**: [egg-vue-webpack-dev] 插件已经分离为easywebpack, egg-webpack, egg-webpack-vue 插件, 保证功能单一, 可以扩展更多基于webpack的打包方案, 比如vue, react, weex. 新版解决方案见[egg-vue-webpack-boilerplate](https://github.com/hubcarl/egg-vue-webpack-boilerplate)
+**NOTE: egg-vue-webpack-dev 插件已经分离为easywebpack, egg-webpack, egg-webpack-vue 插件, 保证功能单一, 可以扩展更多基于webpack的打包方案, 比如vue, react, weex. 新版解决方案见[egg-vue-webpack-boilerplate](https://github.com/hubcarl/egg-vue-webpack-boilerplate)**
 
 
 ## 特性
